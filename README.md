@@ -1,2 +1,4 @@
-# cgml
-A quick and dirty node-based XML-ish way to save data to a text file
+# CGML
+*(current.gen Markup Language)*
+
+A quick, dirty, and probably really bad XML-ish way to save data to and read text files
