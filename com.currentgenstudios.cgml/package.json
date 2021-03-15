@@ -1,0 +1,19 @@
+{
+  "name": "com.currentgenstudios.cgml",
+  "version": "0.1.0",
+  "displayName": "CGML",
+  "description": "A custom parser built by Kyle Lamothe at current.gen Studios.",
+  "unity": "2020.2",
+  "unityRelease": "0f1",
+  "keywords": [
+    "current.gen Studios",
+    "Alscenic",
+    "CGML"
+  ],
+  "author": {
+    "name": "Kyle Lamothe",
+    "email": "kyle@alscenic.com",
+    "url": "https://www.alscenic.com/"
+  },
+  "type": "library"
+}
