@@ -1,4 +1,4 @@
-# CGML 0.1.0
+# CGML **0.1.0**
 *(current.gen Markup Language)*
 
 A quick, dirty, and probably really bad XML-ish way to save data to and read text files - not fast, not perfect, but it's simple and it does what I want
