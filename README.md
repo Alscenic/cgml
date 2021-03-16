@@ -18,7 +18,7 @@ I wanted a simple node-based system for moving data in and out of text files, so
 
 ### 2019.4+
 1. Open Package Manager
-2. Click the `+▾` button
+2. Click the `➕▾` button
 3. Click `Add package from git URL...`
 4. Add `https://github.com/Alscenic/cgml.git`
 
@@ -27,7 +27,12 @@ I wanted a simple node-based system for moving data in and out of text files, so
 2. Add `"com.currentgenstudios.cgml": "https://github.com/Alscenic/cgml.git",` to the dependencies
 
 ### Anything else
-- Clone the repository to your project folder
+- Clone the repository to your project folder and update when necessary
+
+### Recommended
+I highly recommend you use a package manager updater:
+- https://github.com/QuantumCalzone/UnityGitPackageUpdater
+- https://github.com/mob-sakai/UpmGitExtension
 
 ## Etc
 Email me if you have questions, concerns, suggestions, or just want to tell me how much you hate it (https://github.com/Alscenic)
