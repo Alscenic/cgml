@@ -3,7 +3,7 @@
 
 A quick, dirty, and probably really bad XML-ish way to save data to and read text files - not fast, not perfect, but it's simple and it does what I want
 
-Built in C# for Unity but can be used anywhere, wiki soon if anyone wants itm til then email me kyle@alscenic.com
+Built in C# for Unity but can be used anywhere, wiki soon if anyone wants it, til then email me kyle@alscenic.com
 
 ## Here's the idea
 I wanted a simple node-based system for moving data in and out of text files, so here we are. Let's go through the key ideas:
