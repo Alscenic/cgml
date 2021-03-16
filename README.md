@@ -32,7 +32,9 @@ I wanted a simple node-based system for moving data in and out of text files, so
 ### Recommended
 I highly recommend you use a package manager updater:
 - https://github.com/QuantumCalzone/UnityGitPackageUpdater
+  - Simpler
 - https://github.com/mob-sakai/UpmGitExtension
+  - More advanced
 
 ## Etc
 Email me if you have questions, concerns, suggestions, or just want to tell me how much you hate it (https://github.com/Alscenic)
