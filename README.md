@@ -1,4 +1,4 @@
-# __CGML__ 0.1.0
+# CGML
 *(current.gen Markup Language)*
 
 A quick way to save data to text files and read it back - not fast, not perfect, but it's simple and it does what I want. Slowly adding features.
