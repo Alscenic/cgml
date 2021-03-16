@@ -17,7 +17,7 @@ I wanted a simple node-based system for moving data in and out of text files, so
 2. Follow **2019.4+** instructions
 
 ### 2019.4+
-1. Open Window/Package Manager
+1. Open Package Manager
 2. Click the `+▾` button
 3. Click `Add package from git URL...`
 4. Add `https://github.com/Alscenic/cgml.git`
