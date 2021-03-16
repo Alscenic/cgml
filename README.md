@@ -14,14 +14,14 @@ I wanted a simple node-based system for moving data in and out of text files, so
 ## Unity Installation
 ### Optional 2020.1.3+ (strongly recommended)
 1. Change to dark theme
-1. Follow **2019.4+** instructions
+2. Follow **2019.4+** instructions
 
 ### 2019.4+
 1. Open Window/Package Manager
-1. Click the `+▾` button
-1. Click `Add package from git URL...`
-1. Paste in `https://github.com/Alscenic/cgml.git`
-1. Click the Add button
+2. Click the `+▾` button
+3. Click `Add package from git URL...`
+4. Paste in `https://github.com/Alscenic/cgml.git`
+5. Click the Add button
 
 ### < 2019.3
 1. In your project folder, open `Packages/manifest.json`
