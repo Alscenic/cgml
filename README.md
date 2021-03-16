@@ -12,6 +12,6 @@ I wanted a simple node-based system for moving data in and out of text files, so
 - Each `CGMLObject` has a single root node and the ability to recursively convert all child nodes to text
 
 ## Etc
-Email me if you have questions, concerns, suggestions, or just want to tell me how much you hate it kyle@alscenic.com
+Email me if you have questions, concerns, suggestions, or just want to tell me how much you hate it (https://github.com/Alscenic)
 
 All included code is © Kyle Lamothe 2021
