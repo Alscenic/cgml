@@ -12,7 +12,7 @@ I wanted a simple node-based system for moving data in and out of text files, so
 - Each `CGMLObject` has a single root node and the ability to recursively convert all child nodes to text
 
 ## Unity Installation
-### Optional 2020.1.3+ (strongly recommended)
+### 2020.1.3+ (optional) (strongly recommended)
 1. Change to dark theme
 2. Follow **2019.4+** instructions
 
