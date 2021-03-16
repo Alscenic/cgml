@@ -58,6 +58,7 @@ namespace CGenStudios.CGML
 	/// </summary>
 	public class Utilities
 	{
+
 		#region Public Methods
 
 		/// <summary>
@@ -333,6 +334,7 @@ namespace CGenStudios.CGML
 		}
 
 		#endregion
+
 	}
 
 	/// <summary>
@@ -390,6 +392,27 @@ namespace CGenStudios.CGML
 		public string ToCGML(bool pretty)
 		{
 			return Utilities.Node2String(Root,pretty);
+		}
+
+		/// <summary>
+		/// Returns whether this <see cref="CGMLObject"/> contains the same hierarchy structure as <paramref name="other"/> and copies any missing keys if not.
+		/// </summary>
+		/// <param name="other">The other.</param>
+		/// <returns>A bool.</returns>
+		public bool ValidateKeysAgainst(CGMLObject other)
+		{
+			return ValidateKeysAgainst(other,true);
+		}
+
+		/// <summary>
+		/// Returns whether this <see cref="CGMLObject"/> contains the same hierarchy structure as <paramref name="other"/>.
+		/// </summary>
+		/// <param name="other">The other.</param>
+		/// <param name="update">If true, copy keys to this <see cref="CGMLObject"/>.</param>
+		/// <returns>A bool.</returns>
+		public bool ValidateKeysAgainst(CGMLObject other,bool update)
+		{
+			throw new System.NotImplementedException();
 		}
 
 		/// <summary>
@@ -514,11 +537,6 @@ namespace CGenStudios.CGML
 			return this;
 		}
 
-		private void SetParent(Node newParent)
-		{
-			Parent = newParent;
-		}
-
 		/// <summary>
 		/// Removes this node from its parent.
 		/// </summary>
@@ -562,6 +580,7 @@ namespace CGenStudios.CGML
 		/// <param name="action">The action.</param>
 		public Node ForEach(System.Action<Node> action)
 		{
+
 			foreach (Node child in Children)
 			{
 				action?.Invoke(child);
@@ -573,13 +592,90 @@ namespace CGenStudios.CGML
 		/// Recursively iterates through each child.
 		/// </summary>
 		/// <param name="action">The action.</param>
-		public Node ForEachRecursive(System.Action<Node> action)
+		public Node ForEachRecursive(System.Action<Node> action,bool invokeSelf = false)
 		{
-			throw new System.NotImplementedException();
+			if (invokeSelf)
+			{
+				action?.Invoke(this);
+			}
+
+			foreach (Node child in Children)
+			{
+				action?.Invoke(child);
+				child.ForEachRecursive(action,false);
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Whether this <see cref="Node"/> contains a child with the specified key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>A bool.</returns>
+		public bool ContainsKey(string key)
+		{
+			foreach (Node child in Children)
+			{
+				if (child.Key == key)
+					return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Gets the number of children with the specified key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>An int.</returns>
+		public int KeyCount(string key)
+		{
+			return KeyCount(key,false);
+		}
+
+		/// <summary>
+		/// Gets the number of children with the specified key.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <param name="recursive">If true, recursive.</param>
+		/// <returns>An int.</returns>
+		public int KeyCount(string key,bool recursive = false)
+		{
+			int count = 0;
+
+			System.Action<Node> action = new System.Action<Node>((node) =>
+			{
+				if (node.Key == key)
+					count++;
+			});
+
+			if (recursive)
+			{
+				ForEachRecursive(action);
+			}
+			else
+			{
+				ForEach(action);
+			}
+
+			return count;
 		}
 
 		#endregion
 
+		#region Private Methods
+
+		/// <summary>
+		/// Sets this node's parent.
+		/// </summary>
+		/// <param name="newParent">The new parent.</param>
+		private void SetParent(Node newParent)
+		{
+			Parent = newParent;
+		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -804,5 +900,18 @@ namespace CGenStudios.CGML
 
 		#endregion
 
+	}
+
+	/// <summary>
+	/// Node tree validation type.
+	/// </summary>
+	[System.Flags]
+	public enum ValidationType
+	{
+		AddMissing,
+
+		RemoveExtra,
+
+		OverwriteExisting,
 	}
 }
