@@ -20,8 +20,7 @@ I wanted a simple node-based system for moving data in and out of text files, so
 1. Open Window/Package Manager
 2. Click the `+▾` button
 3. Click `Add package from git URL...`
-4. Paste in `https://github.com/Alscenic/cgml.git`
-5. Click the Add button
+4. Add `https://github.com/Alscenic/cgml.git`
 
 ### < 2019.3
 1. In your project folder, open `Packages/manifest.json`
