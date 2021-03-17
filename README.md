@@ -13,6 +13,31 @@ I wanted a simple node-based system for moving data in and out of text files, so
 - All nodes can have child nodes, and all child nodes are just normal nodes, allowing for unlimited hierarchy levels
 - Each `CGMLObject` has a single root node and the ability to recursively convert all child nodes to text
 
+## For example
+A settings file
+```xml
+<Root>
+	<Audio>
+		<Master["0.8"]></Master>
+		<Sound["1"]></Sound>
+		<Music["1"]></Music>
+	</Audio>
+	<Display>
+		<ResX["1920"]></ResX>
+		<ResY["1080"]></ResY>
+		<VSync["0"]></VSync>
+		<Fullscreen["1"]></Fullscreen>
+	</Display>
+	<Graphics>
+		<ShadowDistance["200"]></ShadowDistance>
+		<ShadowQuality["2"]></ShadowQuality>
+		<TextureQuality["2"]></TextureQuality>
+		<AntiAliasing["1"]></AntiAliasing>
+		<ViewDistance["2"]></ViewDistance>
+	</Graphics>
+</Root>
+```
+
 ## Unity Installation
 ### 2020.1.3+ (optional) (strongly recommended)
 1. Change to dark theme
