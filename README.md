@@ -5,6 +5,8 @@ A quick way to save data to text files and read it back - not fast, not perfect,
 
 Built in C# for Unity but can be used anywhere, wiki soon if anyone wants it
 
+**Disclaimer:** this library is changing often and may not be ready for production. Use and update with caution. If you're still interested, keep reading.
+
 ## Here's the idea
 I wanted a simple node-based system for moving data in and out of text files, so here we are. Let's go through the key ideas:
 - A `Node` has a name and (optional) value, and can store attributes (think XML/HTML)
