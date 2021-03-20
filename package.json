@@ -1,12 +1,18 @@
 {
   "name": "com.currentgenstudios.cgml",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "displayName": "CGML",
   "description": "A custom language parser.",
   "unity": "2020.2",
   "unityRelease": "0f1",
   "keywords": [
     "current.gen Studios",
+    "current gen Studios",
+    "currentgen Studios",
+    "current.gen Studio",
+    "current gen Studio",
+    "currentgen Studio",
+    "cgs",
     "Alscenic",
     "CGML"
   ],
