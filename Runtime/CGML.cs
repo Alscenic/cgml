@@ -46,6 +46,26 @@ namespace CGenStudios.CGML
 		/// </summary>
 		public const char EQUAL_OPERATOR = '=';
 
+		/// <summary>
+		/// Pass this when dealing with version numbers.
+		/// </summary>
+		public const int VERSION_AUTO = -1;
+
+		/// <summary>
+		/// Pass this when dealing with version numbers.
+		/// </summary>
+		public const int VERSION_0_X_X = 0;
+
+		/// <summary>
+		/// Pass this when dealing with version numbers.
+		/// </summary>
+		public const int VERSION_1_0_X = 1;
+
+		/// <summary>
+		/// The latest version. Do not use - pick the version number you want and stick with it.
+		/// </summary>
+		public const int VERSION_LATEST = VERSION_0_X_X;
+
 		#endregion
 
 	}

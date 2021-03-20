@@ -18,6 +18,11 @@ namespace CGenStudios.CGML
 		/// </summary>
 		public Node Root { get; } = null;
 
+		/// <summary>
+		/// Gets the version number.
+		/// </summary>
+		public int Version { get; } = CGML.VERSION_LATEST;
+
 		#endregion
 
 		#region Public Constructors + Destructors
@@ -26,9 +31,10 @@ namespace CGenStudios.CGML
 		/// Initializes a new <see cref="CGMLObject"/>. Does not create a copy of <paramref name="root"/>.
 		/// </summary>
 		/// <param name="root">The root node.</param>
-		public CGMLObject(Node root)
+		public CGMLObject(Node root,int version)
 		{
 			Root = root;
+			Version = version;
 		}
 
 		/// <summary>
@@ -37,7 +43,7 @@ namespace CGenStudios.CGML
 		/// <param name="cgml">The CGML string.</param>
 		public CGMLObject(string cgml)
 		{
-			Root = Utilities.FromCGML(cgml);
+			Root = Utilities.Import(cgml);
 		}
 
 		/// <summary>

@@ -82,9 +82,38 @@ namespace CGenStudios.CGML
 		/// <summary>
 		/// Converts a CGML string to a node. Recursive.
 		/// </summary>
-		/// <param name="str">The str.</param>
+		/// <param name="str">The data.</param>
 		/// <returns>A CGMLObject.</returns>
-		public static Node FromCGML(string str)
+		public static Node Import(string str)
+		{
+			return Import(str,CGML.VERSION_AUTO);
+		}
+
+		/// <summary>
+		/// Converts a CGML string to a node. Recursive.
+		/// </summary>
+		/// <param name="str">The data.</param>
+		/// <param name="version">The CGML version you're importing.</param>
+		/// <returns>A CGMLObject.</returns>
+		public static Node Import(string str,int version)
+		{
+			switch (version)
+			{
+				case CGML.VERSION_0_X_X:
+					return Import_0_X_X(str);
+
+				default:
+					goto case CGML.VERSION_LATEST;
+			}
+		}
+
+		#endregion
+
+		#region Private Methods
+
+		/// <summary>
+		/// </summary>
+		private static Node Import_0_X_X(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 			{
@@ -263,10 +292,6 @@ namespace CGenStudios.CGML
 			return root;
 		}
 
-		#endregion
-
-		#region Private Methods
-
 		/// <summary>
 		/// Converts a <see cref="Node"/> to a string. Recursive.
 		/// </summary>
@@ -336,5 +361,6 @@ namespace CGenStudios.CGML
 		}
 
 		#endregion
+
 	}
 }
