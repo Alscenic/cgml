@@ -36,6 +36,12 @@ A pretty-printed settings file
 	<Gameplay>
 		<Difficulty["1"] EnableMonsters="true"></Difficulty>
 	</Gameplay>
+	<Controls>
+		<Sensitivity X="0.4" Y="0.4">
+			<Linked["true"]>
+			</Linked>
+		</Sensitivity>
+	</Controls>
 </Root>
 ```
 
