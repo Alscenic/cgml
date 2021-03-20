@@ -1,6 +1,6 @@
 {
   "name": "com.currentgenstudios.cgml",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "displayName": "CGML",
   "description": "A custom language parser.",
   "unity": "2020.2",
