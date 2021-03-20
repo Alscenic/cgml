@@ -159,6 +159,14 @@ namespace CGenStudios.CGML
 
 						switch (c)
 						{
+							// Ignore newlines
+							case '\n':
+								break;
+
+							// Ignore tabs
+							case '\t':
+								break;
+
 							case CGML.NODE_BEGIN:
 								if (nextChar == CGML.NODE_ENDMARK)
 								{
