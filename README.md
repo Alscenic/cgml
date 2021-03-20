@@ -14,13 +14,12 @@ I wanted a simple node-based system for moving data in and out of text files, so
 - Each `CGMLObject` has a single root node and the ability to recursively convert all child nodes to text
 
 ## For example
-A settings file
+A pretty-printed settings file
 ```xml
 <Root>
 	<Audio>
-		<Master["0.8"]></Master>
-		<Sound["1"]></Sound>
-		<Music["1"]></Music>
+		<Volume["0.8"] Sound="1" Music="1">
+		</Volume>
 	</Audio>
 	<Display>
 		<Resolution ResX="1280" ResY="720" Freq="60"></Resolution>
@@ -35,7 +34,7 @@ A settings file
 		<ViewDistance["2"]></ViewDistance>
 	</Graphics>
 	<Gameplay>
-		<Difficulty["1"]></Difficulty>
+		<Difficulty["1"] EnableMonsters="true"></Difficulty>
 	</Gameplay>
 </Root>
 ```
