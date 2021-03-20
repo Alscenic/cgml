@@ -76,6 +76,18 @@ namespace CGenStudios.CGML
 		/// <returns>A string.</returns>
 		public static string ToCGML(Node node,bool pretty)
 		{
+			return ToCGML(node,pretty,0);
+		}
+
+		/// <summary>
+		/// Converts a <see cref="Node"/> to a string. Recursive.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="pretty">If true, makes the string more readable.</param>
+		/// <param name="level">Recursion level.</param>
+		/// <returns>A string.</returns>
+		private static string ToCGML(Node node,bool pretty,int level)
+		{
 			StringBuilder str = new StringBuilder();
 
 			str.Append(CGML.NODE_BEGIN);
@@ -95,9 +107,14 @@ namespace CGenStudios.CGML
 			str.Append(node.Attributes.ToString());
 			str.Append(CGML.NODE_END);
 
+			if (pretty)
+			{
+				AddNewLine(str,level);
+			}
+
 			for (int i = 0; i < node.Count; i++)
 			{
-				str.Append(ToCGML(node[i],pretty));
+				str.Append(ToCGML(node[i],pretty,level + 1));
 			}
 
 			str.Append(CGML.NODE_BEGIN);
@@ -105,7 +122,26 @@ namespace CGenStudios.CGML
 			str.Append(node.Key);
 			str.Append(CGML.NODE_END);
 
+			if (pretty)
+			{
+				AddNewLine(str,level);
+			}
+
 			return str.ToString();
+		}
+
+		/// <summary>
+		/// Adds a new line to the StringBuilder.
+		/// </summary>
+		/// <param name="str">The StringBuilder.</param>
+		/// <param name="level">The indentation level.</param>
+		private static void AddNewLine(StringBuilder str,int level)
+		{
+			str.Append("\n");
+			for (int i = 0; i < level; i++)
+			{
+				str.Append("\t");
+			}
 		}
 
 		/// <summary>

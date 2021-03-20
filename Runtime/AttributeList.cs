@@ -96,7 +96,7 @@ namespace CGenStudios.CGML
 		/// Adds an array of attributes.
 		/// </summary>
 		/// <param name="attributes">The attributes.</param>
-		public void Set(Attribute[] attributes)
+		public void Set(params Attribute[] attributes)
 		{
 			for (int i = 0; i < attributes.Length; i++)
 			{
