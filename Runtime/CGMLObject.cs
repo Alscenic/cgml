@@ -74,7 +74,7 @@ namespace CGenStudios.CGML
 		/// <returns>A string.</returns>
 		public string ToCGML(bool pretty)
 		{
-			return Utilities.ToCGML(Root,pretty);
+			return Utilities.Export(Root,pretty);
 		}
 
 		/// <summary>

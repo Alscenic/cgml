@@ -74,9 +74,9 @@ namespace CGenStudios.CGML
 		/// <param name="node">The node.</param>
 		/// <param name="pretty">If true, makes the string more readable.</param>
 		/// <returns>A string.</returns>
-		public static string ToCGML(Node node,bool pretty)
+		public static string Export(Node node,bool pretty)
 		{
-			return ToCGML(node,pretty,0);
+			return Export(node,pretty,0);
 		}
 
 		/// <summary>
@@ -299,7 +299,7 @@ namespace CGenStudios.CGML
 		/// <param name="pretty">If true, makes the string more readable.</param>
 		/// <param name="level">Recursion level.</param>
 		/// <returns>A string.</returns>
-		private static string ToCGML(Node node,bool pretty,int level)
+		private static string Export(Node node,bool pretty,int level)
 		{
 			StringBuilder str = new StringBuilder();
 
@@ -330,7 +330,7 @@ namespace CGenStudios.CGML
 					AddNewLine(str,level + 1);
 				}
 
-				str.Append(ToCGML(node[i],pretty,level + 1));
+				str.Append(Export(node[i],pretty,level + 1));
 			}
 
 			if (pretty)
