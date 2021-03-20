@@ -49,7 +49,7 @@ namespace CGenStudios.CGML
 		/// <summary>
 		/// Gets or sets the node's value.
 		/// </summary>
-		public string Value { get; set; } = null;
+		public object Value { get; set; } = null;
 
 		/// <summary>
 		/// Gets the node's attributes.
@@ -64,7 +64,7 @@ namespace CGenStudios.CGML
 		/// <summary>
 		/// Gets a value indicating whether this node has a value.
 		/// </summary>
-		public bool HasValue => !string.IsNullOrEmpty(Value);
+		public bool HasValue => Value != null;
 
 		/// <summary>
 		/// Gets a value indicating whether this node has children.
@@ -89,7 +89,7 @@ namespace CGenStudios.CGML
 		/// </summary>
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
-		public Node(string key,string value = "")
+		public Node(string key,object value = null)
 		{
 			Key = key;
 			Value = value;

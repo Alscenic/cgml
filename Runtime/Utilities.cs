@@ -80,71 +80,6 @@ namespace CGenStudios.CGML
 		}
 
 		/// <summary>
-		/// Converts a <see cref="Node"/> to a string. Recursive.
-		/// </summary>
-		/// <param name="node">The node.</param>
-		/// <param name="pretty">If true, makes the string more readable.</param>
-		/// <param name="level">Recursion level.</param>
-		/// <returns>A string.</returns>
-		private static string ToCGML(Node node,bool pretty,int level)
-		{
-			StringBuilder str = new StringBuilder();
-
-			str.Append(CGML.NODE_BEGIN);
-			str.Append(node.Key);
-
-			if (!string.IsNullOrEmpty(node.Value))
-			{
-				str.Append(CGML.NODE_VALUE_BEGIN);
-				str.Append(CGML.STRING_BEGIN_END);
-				str.Append(Clean(node.Value));
-				str.Append(CGML.STRING_BEGIN_END);
-				str.Append(CGML.NODE_VALUE_END);
-			}
-
-			if (node.Attributes.Count > 0)
-				str.Append(" ");
-			str.Append(node.Attributes.ToString());
-			str.Append(CGML.NODE_END);
-
-			if (pretty)
-			{
-				AddNewLine(str,level);
-			}
-
-			for (int i = 0; i < node.Count; i++)
-			{
-				str.Append(ToCGML(node[i],pretty,level + 1));
-			}
-
-			str.Append(CGML.NODE_BEGIN);
-			str.Append(CGML.NODE_ENDMARK);
-			str.Append(node.Key);
-			str.Append(CGML.NODE_END);
-
-			if (pretty)
-			{
-				AddNewLine(str,level);
-			}
-
-			return str.ToString();
-		}
-
-		/// <summary>
-		/// Adds a new line to the StringBuilder.
-		/// </summary>
-		/// <param name="str">The StringBuilder.</param>
-		/// <param name="level">The indentation level.</param>
-		private static void AddNewLine(StringBuilder str,int level)
-		{
-			str.Append("\n");
-			for (int i = 0; i < level; i++)
-			{
-				str.Append("\t");
-			}
-		}
-
-		/// <summary>
 		/// Converts a CGML string to a node. Recursive.
 		/// </summary>
 		/// <param name="str">The str.</param>
@@ -322,5 +257,76 @@ namespace CGenStudios.CGML
 
 		#endregion
 
+		#region Private Methods
+
+		/// <summary>
+		/// Converts a <see cref="Node"/> to a string. Recursive.
+		/// </summary>
+		/// <param name="node">The node.</param>
+		/// <param name="pretty">If true, makes the string more readable.</param>
+		/// <param name="level">Recursion level.</param>
+		/// <returns>A string.</returns>
+		private static string ToCGML(Node node,bool pretty,int level)
+		{
+			StringBuilder str = new StringBuilder();
+
+			str.Append(CGML.NODE_BEGIN);
+			str.Append(node.Key);
+
+			if (node.HasValue)
+			{
+				str.Append(CGML.NODE_VALUE_BEGIN);
+				str.Append(CGML.STRING_BEGIN_END);
+				str.Append(Clean(node.Value.ToString()));
+				str.Append(CGML.STRING_BEGIN_END);
+				str.Append(CGML.NODE_VALUE_END);
+			}
+
+			if (node.Attributes.Count > 0)
+			{
+				str.Append(" ");
+			}
+
+			str.Append(node.Attributes.ToString());
+			str.Append(CGML.NODE_END);
+
+			for (int i = 0; i < node.Count; i++)
+			{
+				if (pretty)
+				{
+					AddNewLine(str,level + 1);
+				}
+
+				str.Append(ToCGML(node[i],pretty,level + 1));
+			}
+
+			if (pretty)
+			{
+				AddNewLine(str,level);
+			}
+
+			str.Append(CGML.NODE_BEGIN);
+			str.Append(CGML.NODE_ENDMARK);
+			str.Append(node.Key);
+			str.Append(CGML.NODE_END);
+
+			return str.ToString();
+		}
+
+		/// <summary>
+		/// Adds a new line to the StringBuilder.
+		/// </summary>
+		/// <param name="str">The StringBuilder.</param>
+		/// <param name="level">The indentation level.</param>
+		private static void AddNewLine(StringBuilder str,int level)
+		{
+			str.Append("\n");
+			for (int i = 0; i < level; i++)
+			{
+				str.Append("\t");
+			}
+		}
+
+		#endregion
 	}
 }
