@@ -23,10 +23,9 @@ A settings file
 		<Music["1"]></Music>
 	</Audio>
 	<Display>
-		<ResX["1920"]></ResX>
-		<ResY["1080"]></ResY>
+		<Resolution ResX="1280" ResY="720" Freq="60"></Resolution>
 		<VSync["0"]></VSync>
-		<Fullscreen["1"]></Fullscreen>
+		<Fullscreen["2"]></Fullscreen>
 	</Display>
 	<Graphics>
 		<ShadowDistance["200"]></ShadowDistance>
@@ -35,10 +34,13 @@ A settings file
 		<AntiAliasing["1"]></AntiAliasing>
 		<ViewDistance["2"]></ViewDistance>
 	</Graphics>
+	<Gameplay>
+		<Difficulty["1"]></Difficulty>
+	</Gameplay>
 </Root>
 ```
 
-## Unity Installation
+## Unity installation
 ### 2020.1.3+ (optional) (strongly recommended)
 1. Change to dark theme
 2. Follow **2019.4+** instructions
@@ -49,19 +51,20 @@ A settings file
 3. Click `Add package from git URL...`
 4. Add `https://github.com/Alscenic/cgml.git`
 
-### < 2019.3
+### < 2019.4
 1. In your project folder, open `Packages/manifest.json`
 2. Add `"com.currentgenstudios.cgml": "https://github.com/Alscenic/cgml.git",` to the dependencies
 
-### Anything else
-- Clone the repository to your project folder and update when necessary
-
-### Recommended
-I highly recommend you use a package manager updater:
+### Recommended utilities
+I highly recommend you use one of these UPM extensions:
 - https://github.com/QuantumCalzone/UnityGitPackageUpdater
-  - Simpler
+  - Simple
 - https://github.com/mob-sakai/UpmGitExtension
   - More advanced
+  - (use 1.3.3 instead of 1.3.4 for Unity 2020.2.X if you experience problems)
+
+## Installing anywhere else
+- Clone the repository to your project folder and update when necessary
 
 ## Etc
 Email me if you have questions, concerns, suggestions, or just want to tell me how much you hate it (https://github.com/Alscenic)
