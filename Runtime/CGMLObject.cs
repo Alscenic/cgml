@@ -43,7 +43,7 @@ namespace CGenStudios.CGML
 		/// <param name="cgml">The CGML string.</param>
 		public CGMLObject(string cgml)
 		{
-			Root = Utilities.Import(cgml);
+			Root = Utilities.FromCGML(cgml);
 		}
 
 		/// <summary>
@@ -74,7 +74,7 @@ namespace CGenStudios.CGML
 		/// <returns>A string.</returns>
 		public string ToCGML(bool pretty)
 		{
-			return Utilities.Export(Root,pretty);
+			return Utilities.ToCGML(Root,pretty);
 		}
 
 		/// <summary>

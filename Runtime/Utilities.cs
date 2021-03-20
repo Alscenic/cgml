@@ -74,9 +74,9 @@ namespace CGenStudios.CGML
 		/// <param name="node">The node.</param>
 		/// <param name="pretty">If true, makes the string more readable.</param>
 		/// <returns>A string.</returns>
-		public static string Export(Node node,bool pretty)
+		public static string ToCGML(Node node,bool pretty)
 		{
-			return Export(node,pretty,0);
+			return ToCGML(node,pretty,0);
 		}
 
 		/// <summary>
@@ -84,9 +84,9 @@ namespace CGenStudios.CGML
 		/// </summary>
 		/// <param name="str">The data.</param>
 		/// <returns>A CGMLObject.</returns>
-		public static Node Import(string str)
+		public static Node FromCGML(string str)
 		{
-			return Import(str,CGML.VERSION_AUTO);
+			return FromCGML(str,CGML.VERSION_AUTO);
 		}
 
 		/// <summary>
@@ -95,12 +95,12 @@ namespace CGenStudios.CGML
 		/// <param name="str">The data.</param>
 		/// <param name="version">The CGML version you're importing.</param>
 		/// <returns>A CGMLObject.</returns>
-		public static Node Import(string str,int version)
+		public static Node FromCGML(string str,int version)
 		{
 			switch (version)
 			{
 				case CGML.VERSION_0_X_X:
-					return Import_0_X_X(str);
+					return FromCGML_0_X_X(str);
 
 				default:
 					goto case CGML.VERSION_LATEST;
@@ -113,7 +113,7 @@ namespace CGenStudios.CGML
 
 		/// <summary>
 		/// </summary>
-		private static Node Import_0_X_X(string str)
+		private static Node FromCGML_0_X_X(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 			{
@@ -299,7 +299,7 @@ namespace CGenStudios.CGML
 		/// <param name="pretty">If true, makes the string more readable.</param>
 		/// <param name="level">Recursion level.</param>
 		/// <returns>A string.</returns>
-		private static string Export(Node node,bool pretty,int level)
+		private static string ToCGML(Node node,bool pretty,int level)
 		{
 			StringBuilder str = new StringBuilder();
 
@@ -330,7 +330,7 @@ namespace CGenStudios.CGML
 					AddNewLine(str,level + 1);
 				}
 
-				str.Append(Export(node[i],pretty,level + 1));
+				str.Append(ToCGML(node[i],pretty,level + 1));
 			}
 
 			if (pretty)

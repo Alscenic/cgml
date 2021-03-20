@@ -466,7 +466,7 @@ namespace CGenStudios.CGML
 		/// </summary>
 		public override string ToString()
 		{
-			return Utilities.Export(this,false);
+			return Utilities.ToCGML(this,false);
 		}
 
 		#endregion
