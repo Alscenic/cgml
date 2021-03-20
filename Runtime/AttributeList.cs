@@ -89,9 +89,18 @@ namespace CGenStudios.CGML
 		/// <param name="attributes">The attributes.</param>
 		public void Set(List<Attribute> attributes)
 		{
-			foreach (Attribute attribute in attributes)
+			Set(attributes.ToArray());
+		}
+
+		/// <summary>
+		/// Adds an array of attributes.
+		/// </summary>
+		/// <param name="attributes">The attributes.</param>
+		public void Set(Attribute[] attributes)
+		{
+			for (int i = 0; i < attributes.Length; i++)
 			{
-				Set(attribute);
+				Set(attributes[i]);
 			}
 		}
 
