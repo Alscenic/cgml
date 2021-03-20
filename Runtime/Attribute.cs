@@ -44,6 +44,18 @@ namespace CGenStudios.CGML
 			Serialize = serialize;
 		}
 
+		/// <summary>
+		/// Creates a copy of another <see cref="Attribute"/>.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <param name="value">The value.</param>
+		public Attribute(Attribute original)
+		{
+			Key = original.Key;
+			Value = original.Value;
+			Serialize = original.Serialize;
+		}
+
 		#endregion
 
 		#region Private Constructors + Destructors

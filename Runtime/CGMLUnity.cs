@@ -12,6 +12,7 @@ namespace CGenStudios.CGMLUnity
 	/// </summary>
 	public class UnityUtilities
 	{
+
 		#region Public Methods
 
 		/// <summary>
@@ -152,6 +153,7 @@ namespace CGenStudios.CGMLUnity
 		}
 
 		#endregion
+
 	}
 
 #else

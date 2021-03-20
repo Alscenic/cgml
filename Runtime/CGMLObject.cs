@@ -1,6 +1,8 @@
 ﻿// Code by Kyle Lamothe
 // from current.gen Studios
 
+using System.Collections.Generic;
+
 namespace CGenStudios.CGML
 {
 	/// <summary>
@@ -21,7 +23,7 @@ namespace CGenStudios.CGML
 		#region Public Constructors + Destructors
 
 		/// <summary>
-		/// Initializes a new <see cref="CGMLObject"/>.
+		/// Initializes a new <see cref="CGMLObject"/>. Does not create a copy of <paramref name="root"/>.
 		/// </summary>
 		/// <param name="root">The root node.</param>
 		public CGMLObject(Node root)
@@ -30,12 +32,21 @@ namespace CGenStudios.CGML
 		}
 
 		/// <summary>
-		/// Creates a deep copy of a <see cref="CGMLObject"/>.
+		/// Initializes a new instance of the <see cref="CGMLObject"/> class.
+		/// </summary>
+		/// <param name="cgml">The CGML string.</param>
+		public CGMLObject(string cgml)
+		{
+			Root = Utilities.FromCGML(cgml);
+		}
+
+		/// <summary>
+		/// Creates a deep copy of another <see cref="CGMLObject"/>.
 		/// </summary>
 		/// <param name="original">The original object.</param>
 		public CGMLObject(CGMLObject original)
 		{
-
+			Root = new Node(original.Root);
 		}
 
 		/// <summary>
@@ -57,28 +68,20 @@ namespace CGenStudios.CGML
 		/// <returns>A string.</returns>
 		public string ToCGML(bool pretty)
 		{
-			return Utilities.Node2String(Root,pretty);
-		}
-
-		/// <summary>
-		/// Returns whether this <see cref="CGMLObject"/> contains the same hierarchy structure as <paramref name="other"/> and copies any missing keys if not.
-		/// </summary>
-		/// <param name="other">The other.</param>
-		/// <returns>A bool.</returns>
-		public bool ValidateKeysAgainst(CGMLObject other)
-		{
-			return ValidateKeysAgainst(other,true);
+			return Utilities.ToCGML(Root,pretty);
 		}
 
 		/// <summary>
 		/// Returns whether this <see cref="CGMLObject"/> contains the same hierarchy structure as <paramref name="other"/>.
 		/// </summary>
 		/// <param name="other">The other.</param>
-		/// <param name="update">If true, copy keys to this <see cref="CGMLObject"/>.</param>
+		/// <param name="update">If true, copy missing nodes and attributes from <paramref name="other"/>.</param>
+		/// <param name="trim">If true, remove nodes and attributes that don't appear in <paramref name="other"/>.</param>
+		/// <param name="ignoreRoot">If true, ignore root node.</param>
 		/// <returns>A bool.</returns>
-		public bool ValidateKeysAgainst(CGMLObject other,bool update)
+		public bool ValidateAgainst(CGMLObject other,bool update,bool trim,bool ignoreRoot)
 		{
-			throw new System.NotImplementedException();
+			return Root.Validate(other.Root,update,trim,ignoreRoot);
 		}
 
 		/// <summary>
@@ -86,6 +89,21 @@ namespace CGenStudios.CGML
 		public override string ToString()
 		{
 			return ToCGML(false);
+		}
+
+		/// <summary>
+		/// </summary>
+		public override bool Equals(object obj)
+		{
+			return obj is CGMLObject @object &&
+				   EqualityComparer<Node>.Default.Equals(Root,@object.Root);
+		}
+
+		/// <summary>
+		/// </summary>
+		public override int GetHashCode()
+		{
+			return -1490287827 + EqualityComparer<Node>.Default.GetHashCode(Root);
 		}
 
 		#endregion

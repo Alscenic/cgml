@@ -28,6 +28,19 @@ namespace CGenStudios.CGML
 			}
 		}
 
+		public Attribute this[int index]
+		{
+			get
+			{
+				if (index > 0 && index < Count)
+				{
+					return this.m_Attributes[index];
+				}
+
+				return null;
+			}
+		}
+
 		/// <summary>
 		/// Gets the total number of attributes in this list.
 		/// </summary>
@@ -71,6 +84,18 @@ namespace CGenStudios.CGML
 		}
 
 		/// <summary>
+		/// Adds a list of attributes.
+		/// </summary>
+		/// <param name="attributes">The attributes.</param>
+		public void Set(List<Attribute> attributes)
+		{
+			foreach (Attribute attribute in attributes)
+			{
+				Set(attribute);
+			}
+		}
+
+		/// <summary>
 		/// Removes an attribute.
 		/// </summary>
 		/// <param name="attribute">The attribute.</param>
@@ -78,6 +103,18 @@ namespace CGenStudios.CGML
 		{
 			if (attribute != null)
 				this.m_Attributes.Remove(attribute);
+		}
+
+		/// <summary>
+		/// Removes an attribute.
+		/// </summary>
+		/// <param name="attribute">The attribute.</param>
+		public void Remove(List<Attribute> attributes)
+		{
+			foreach (Attribute attribute in attributes)
+			{
+				Remove(attribute);
+			}
 		}
 
 		/// <summary>

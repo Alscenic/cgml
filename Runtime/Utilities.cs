@@ -69,12 +69,12 @@ namespace CGenStudios.CGML
 		}
 
 		/// <summary>
-		/// Converts a <see cref="Node"/> to a string.
+		/// Converts a <see cref="Node"/> to a string. Recursive.
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <param name="pretty">If true, makes the string more readable.</param>
 		/// <returns>A string.</returns>
-		public static string Node2String(Node node,bool pretty)
+		public static string ToCGML(Node node,bool pretty)
 		{
 			StringBuilder str = new StringBuilder();
 
@@ -97,7 +97,7 @@ namespace CGenStudios.CGML
 
 			for (int i = 0; i < node.Count; i++)
 			{
-				str.Append(Node2String(node[i],pretty));
+				str.Append(ToCGML(node[i],pretty));
 			}
 
 			str.Append(CGML.NODE_BEGIN);
@@ -109,18 +109,18 @@ namespace CGenStudios.CGML
 		}
 
 		/// <summary>
-		/// Converts a CGML string to an object.
+		/// Converts a CGML string to a node. Recursive.
 		/// </summary>
 		/// <param name="str">The str.</param>
 		/// <returns>A CGMLObject.</returns>
-		public static CGMLObject String2Object(string str)
+		public static Node FromCGML(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 			{
 				return null;
 			}
 
-			CGMLObject obj = null;
+			Node root = null;
 
 			bool inString = false;
 			bool wasInString = false;
@@ -134,7 +134,6 @@ namespace CGenStudios.CGML
 			Node thisNode = null;
 			StringBuilder thisKey = new StringBuilder();
 			StringBuilder thisValue = new StringBuilder();
-			(int level, int child) depth = (0, 0);
 
 			for (int i = 0; i <= str.Length; i++)
 			{
@@ -265,13 +264,13 @@ namespace CGenStudios.CGML
 
 						if (newNode != null)
 						{
-							if (obj == null)
+							if (root == null)
 							{
-								obj = new CGMLObject(newNode);
+								root = newNode;
 							}
 							else
 							{
-								thisNode.Add(newNode);
+								thisNode.Push(newNode);
 							}
 
 							thisNode = newNode;
@@ -282,7 +281,7 @@ namespace CGenStudios.CGML
 				}
 			}
 
-			return obj;
+			return root;
 		}
 
 		#endregion
