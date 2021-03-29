@@ -1,6 +1,6 @@
 {
     "name": "CGML",
-    "rootNamespace": "CGenStudios.CGML",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
