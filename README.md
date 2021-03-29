@@ -1,17 +1,18 @@
 # CGML
 *(current.gen Markup Language)*
 
-A quick way to save data to text files and read it back - not fast, not perfect, but it's simple and it does what I want. Slowly adding features.
+A quick way to save data to text files and read it back - not fast, not perfect, but it's simple and does what I want. Slowly adding features.
 
 Built in C# for Unity but can be used anywhere, wiki soon if anyone wants it
 
 **Disclaimer:** this library is undergoing large changes often and may not be (definitely isn't) ready for production. Use and update with caution. If you're still interested, keep reading.
 
 ## Here's the idea
-I wanted a simple node-based system for moving data in and out of text files, so here we are. Let's go through the key ideas:
-- A `Node` has a name and (optional) value, and can store attributes (think XML/HTML)
-- All nodes can have child nodes, and all child nodes are just normal nodes, allowing for unlimited hierarchy levels
-- Each `CGMLObject` has a single root node and the ability to recursively convert all child nodes to text
+I wanted a simple node-based system for moving data in and out of text files, so here we are. Let's go through some key points:
+- A `Node` is a class that has a name and (optional) value, and can store attributes as a special list (think XML/HTML)
+- All nodes can have child nodes
+- All child nodes are just normal nodes, allowing for unlimited hierarchy levels
+- A `CGMLObject` is a class with a single ordinary root node
 
 ## For example
 A pretty-printed settings file
