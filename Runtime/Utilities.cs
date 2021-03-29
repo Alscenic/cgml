@@ -3,6 +3,7 @@
 
 namespace CGenStudios.CGML
 {
+	using System;
 	using System.Text;
 
 	/// <summary>
@@ -100,7 +101,7 @@ namespace CGenStudios.CGML
 			switch (version)
 			{
 				case CGML.VERSION_0_X_X:
-					return FromCGML_0_X_X(str);
+					return FromCGML_Legacy(str);
 
 				default:
 					goto case CGML.VERSION_LATEST;
@@ -111,9 +112,82 @@ namespace CGenStudios.CGML
 
 		#region Private Methods
 
+		// TODO: add comments (ez)
+		// <! this is a comment !>
+
+		private static Node FromCGML_0_4_0(string str)
+		{
+			if (string.IsNullOrEmpty(str))
+			{
+				return null;
+			}
+
+			Node root = null;
+
+			ReadElement element = ReadElement.Generic;
+			bool reading = false;
+			ReadScope scope = ReadScope.Default;
+
+			Node thisNode = null;
+			StringBuilder value = new StringBuilder();
+			char lastChar = (char)0;
+
+			Action commitNodeKey = new Action(() =>
+			{
+				thisNode = new Node(value.ToString());
+				value.Clear();
+			});
+
+			for (int i = 0; i < str.Length; i++)
+			{
+				if (i < str.Length)
+				{
+					char c = str[i];
+					char nextChar = i < str.Length - 1 ? str[i + 1] : (char)0;
+
+					switch (c)
+					{
+						case CGML.NODE_BEGIN:
+						{
+							scope = ReadScope.Node;
+							element = ReadElement.Key;
+							reading = true;
+							break;
+						}
+
+						case CGML.STRING_BEGIN_END:
+						{
+							if (lastChar == '\\')
+							{
+								goto default;
+							}
+
+							element = ReadElement.Value;
+
+							break;
+						}
+
+						default:
+						{
+							if (reading)
+							{
+								value.Append(c);
+							}
+
+							break;
+						}
+					}
+
+					lastChar = c;
+				}
+			}
+
+			return root;
+		}
+
 		/// <summary>
 		/// </summary>
-		private static Node FromCGML_0_X_X(string str)
+		private static Node FromCGML_Legacy(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 			{
@@ -125,7 +199,6 @@ namespace CGenStudios.CGML
 			bool inString = false;
 			bool wasInString = false;
 			bool inNode = false;
-			bool inEndNode = false;
 			bool inValue = false;
 			bool inKey = false;
 			bool inAttribute = false;
@@ -133,28 +206,21 @@ namespace CGenStudios.CGML
 			char lastChar = (char)0;
 			Node thisNode = null;
 			StringBuilder thisKey = new StringBuilder();
-			StringBuilder thisValue = new StringBuilder();
+			StringBuilder thisValue = null;
 
 			for (int i = 0; i <= str.Length; i++)
 			{
-				if (i == str.Length)
-				{
-
-				}
-				else
+				if (i < str.Length)
 				{
 					char c = str[i];
 					char nextChar = i < str.Length - 1 ? str[i + 1] : (char)0;
-
-					//bool isLetter = char.IsLetter(c);
-					//bool isDigit = char.IsDigit(c);
-					//bool isLetterOrDigit = isLetter || isDigit;
 
 					if (inString)
 					{
 						if (c != CGML.STRING_BEGIN_END || (str[i - 1] == '\\' && str[i - 2] != '\\'))
 						{
 							thisValue.Append(c);
+
 						}
 						else
 						{
@@ -169,19 +235,12 @@ namespace CGenStudios.CGML
 						{
 							if (inNode)
 							{
-								if (inValue)
+								if (inAttribute)
 								{
-									if (inAttribute)
-									{
-										thisNode.Attributes.Set(new Attribute(thisKey.ToString(),thisValue.ToString()));
+									thisNode.Attributes.Set(new Attribute(thisKey.ToString(),thisValue.ToString()));
+									thisValue = null;
 
-										inValue = false;
-										inAttribute = false;
-									}
-									else
-									{
-										newNode = new Node(thisKey.ToString(),thisValue.ToString());
-									}
+									inAttribute = false;
 								}
 							}
 						}
@@ -192,36 +251,31 @@ namespace CGenStudios.CGML
 							case '\n':
 								break;
 
+							// Ignore carriage return
+							case '\r':
+								break;
+
 							// Ignore tabs
 							case '\t':
 								break;
 
 							case CGML.NODE_BEGIN:
-								if (nextChar == CGML.NODE_ENDMARK)
-								{
-									inNode = false;
-									inEndNode = true;
-								}
-								else
-								{
-									inNode = true;
-									inKey = true;
-									thisKey = new StringBuilder();
-								}
+								inNode = true;
+								inKey = true;
+								thisKey = new StringBuilder();
 								break;
 
 							case CGML.NODE_END:
-								if (inEndNode)
-								{
-									thisNode = thisNode.Parent;
-								}
-								else if (!wasInString)
-								{
-									newNode = new Node(thisKey.ToString());
-								}
+								newNode = new Node(thisKey.ToString());
 
-								inEndNode = false;
 								inNode = false;
+								inKey = false;
+								inValue = false;
+								inAttribute = false;
+								break;
+
+							case CGML.NODE_ENDMARK:
+								thisNode = thisNode.Parent;
 								break;
 
 							case CGML.STRING_BEGIN_END:
@@ -232,7 +286,6 @@ namespace CGenStudios.CGML
 							case CGML.NODE_VALUE_BEGIN:
 								inKey = false;
 								inValue = true;
-								thisValue = new StringBuilder();
 								break;
 
 							case CGML.NODE_VALUE_END:
@@ -240,14 +293,12 @@ namespace CGenStudios.CGML
 								break;
 
 							case CGML.EQUAL_OPERATOR:
-								inKey = false;
 								inValue = true;
 								break;
 
 							case ' ':
-								inKey = true;
+								inKey = false;
 								inAttribute = true;
-								thisKey = new StringBuilder();
 								break;
 
 							case (char)0:
@@ -333,15 +384,15 @@ namespace CGenStudios.CGML
 				str.Append(ToCGML(node[i],pretty,level + 1));
 			}
 
-			if (pretty)
+			if (node.Count > 0)
 			{
-				AddNewLine(str,level);
+				if (pretty)
+				{
+					AddNewLine(str,level);
+				}
 			}
 
-			str.Append(CGML.NODE_BEGIN);
 			str.Append(CGML.NODE_ENDMARK);
-			str.Append(node.Key);
-			str.Append(CGML.NODE_END);
 
 			return str.ToString();
 		}

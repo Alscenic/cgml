@@ -1,6 +1,8 @@
 ﻿// Code by Kyle Lamothe
 // from current.gen Studios
 
+#define CGML_UNITY
+
 namespace CGenStudios.CGMLUnity
 {
 #if UNITY_EDITOR || UNITY_STANDALONE

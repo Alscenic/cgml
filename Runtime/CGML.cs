@@ -1,6 +1,8 @@
 ﻿// Code by Kyle Lamothe
 // from current.gen Studios
 
+#define CGML
+
 namespace CGenStudios.CGML
 {
 	/// <summary>
