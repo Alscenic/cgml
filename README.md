@@ -13,6 +13,7 @@ I wanted a simple node-based system for moving data in and out of text files, so
 - All nodes can have child nodes
 - All child nodes are just normal nodes, allowing for unlimited hierarchy levels
 - A `CGMLObject` is a class with a single ordinary root node
+- Nodes can very easily be looped through recursively
 
 ## For example
 A pretty-printed settings file
