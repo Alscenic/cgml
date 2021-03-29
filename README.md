@@ -56,8 +56,15 @@ A pretty-printed settings file
 </Root>
 ```
 
+## Strengths
+- Ease of use
+- - Can convert between text files and class instances with a single function call
+- - Node system is easy to understand, simple to use
+- Easily optimized
+- Readable when translated to a string
+
 ## Limitations
-- Node keys must not include spaces or angle brackets
+- Node and attribute keys must not include spaces or angle brackets
 - Closing node/tag for childless nodes makes file size moderately larger
 
 ## Unity installation
