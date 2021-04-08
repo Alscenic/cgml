@@ -20,29 +20,29 @@ A pretty-printed settings file
 ```xml
 <Root>
 	<Audio>
-		<Volume["0.8"] Sound="1" Music="1"></Volume>
-	</Audio>
+		<Volume["0.8"] Sound="1" Music="1">/
+	/
 	<Display>
-		<Resolution ResX="1280" ResY="720" Freq="60"></Resolution>
-		<VSync["0"]></VSync>
-		<Fullscreen["2"] Monitor="0"></Fullscreen>
-	</Display>
+		<Resolution ResX="1280" ResY="720" Freq="60">/
+		<VSync["0"]>/
+		<Fullscreen["2"] Monitor="0">/
+	/
 	<Graphics>
-		<ShadowDistance["200"]></ShadowDistance>
-		<ShadowQuality["2"]></ShadowQuality>
-		<TextureQuality["2"]></TextureQuality>
-		<AntiAliasing["1"]></AntiAliasing>
-		<ViewDistance["2"]></ViewDistance>
-	</Graphics>
+		<ShadowDistance["200"]>/
+		<ShadowQuality["2"]>/
+		<TextureQuality["2"]>/
+		<AntiAliasing["1"]>/
+		<ViewDistance["2"]>/
+	/
 	<Gameplay>
-		<Difficulty["1"] EnableMonsters="true"></Difficulty>
-	</Gameplay>
+		<Difficulty["1"] EnableMonsters="true">/
+	/
 	<Controls>
 		<Sensitivity X="0.4" Y="0.4">
-			<Linked["true"]></Linked>
-		</Sensitivity>
-	</Controls>
-</Root>
+			<Linked["true"]>/
+		/
+	/
+/
 ```
 
 ## Strengths
