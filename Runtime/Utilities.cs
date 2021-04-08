@@ -87,7 +87,7 @@ namespace CGenStudios.CGML
 		/// <returns>A CGMLObject.</returns>
 		public static Node FromCGML(string str)
 		{
-			return FromCGML(str,CGML.VERSION_AUTO);
+			return FromCGML(str,CGML.VERSION_LATEST);
 		}
 
 		/// <summary>
@@ -100,11 +100,20 @@ namespace CGenStudios.CGML
 		{
 			switch (version)
 			{
-				case CGML.VERSION_0_X_X:
+				case CGML.VERSION_0_4_X:
+				{
+					return FromCGML_0_4_0(str);
+				}
+
+				case CGML.VERSION_LEGACY:
+				{
 					return FromCGML_Legacy(str);
+				}
 
 				default:
+				{
 					goto case CGML.VERSION_LATEST;
+				}
 			}
 		}
 
@@ -115,6 +124,8 @@ namespace CGenStudios.CGML
 		// TODO: add comments (ez)
 		// <! this is a comment !>
 
+		/// <summary>
+		/// </summary>
 		private static Node FromCGML_0_4_0(string str)
 		{
 			if (string.IsNullOrEmpty(str))
@@ -124,18 +135,61 @@ namespace CGenStudios.CGML
 
 			Node root = null;
 
-			ReadElement element = ReadElement.Generic;
+			ReadElement elementType = ReadElement.None;
 			bool reading = false;
 			ReadScope scope = ReadScope.Default;
 
 			Node thisNode = null;
-			StringBuilder value = new StringBuilder();
+			StringBuilder element = new StringBuilder();
 			char lastChar = (char)0;
+
+			Func<string> commitElement = new Func<string>(() =>
+			{
+				string s = element.ToString();
+				element.Clear();
+				return s;
+			});
 
 			Action commitNodeKey = new Action(() =>
 			{
-				thisNode = new Node(value.ToString());
-				value.Clear();
+				Node newNode = new Node(commitElement());
+
+				if (root == null)
+				{
+					root = newNode;
+				}
+				else
+				{
+					thisNode.Push(newNode);
+				}
+
+				thisNode = newNode;
+			});
+
+			Action commitAttributeKey = new Action(() =>
+			{
+				thisNode.Attributes.Set(new Attribute(commitElement()));
+				elementType = ReadElement.None;
+			});
+
+			Action commitValue = new Action(() =>
+			{
+				switch (scope)
+				{
+					case ReadScope.Node:
+					{
+						thisNode.Value = commitElement();
+
+						break;
+					}
+					case ReadScope.Attribute:
+					{
+						thisNode.Attributes[thisNode.Attributes.Count - 1].Value = commitElement();
+
+						break;
+					}
+				}
+				elementType = ReadElement.None;
 			});
 
 			for (int i = 0; i < str.Length; i++)
@@ -145,36 +199,113 @@ namespace CGenStudios.CGML
 					char c = str[i];
 					char nextChar = i < str.Length - 1 ? str[i + 1] : (char)0;
 
-					switch (c)
+					if (reading)
 					{
-						case CGML.NODE_BEGIN:
+						switch (c)
 						{
-							scope = ReadScope.Node;
-							element = ReadElement.Key;
-							reading = true;
-							break;
-						}
-
-						case CGML.STRING_BEGIN_END:
-						{
-							if (lastChar == '\\')
+							case CGML.STRING_BEGIN_END:
 							{
-								goto default;
+								if (lastChar == '\\')
+								{
+									break;
+								}
+
+								commitValue();
+								reading = false;
+
+								break;
 							}
 
-							element = ReadElement.Value;
-
-							break;
-						}
-
-						default:
-						{
-							if (reading)
+							default:
 							{
-								value.Append(c);
+								element.Append(c);
+								break;
+							}
+						}
+					}
+					else
+					{
+						switch (c)
+						{
+							// Ignore newlines
+							case '\n':
+								break;
+
+							// Ignore carriage return
+							case '\r':
+								break;
+
+							// Ignore tabs
+							case '\t':
+								break;
+
+							case CGML.NODE_BEGIN:
+							{
+								scope = ReadScope.Node;
+								elementType = ReadElement.Key;
+
+								break;
 							}
 
-							break;
+							case CGML.NODE_END:
+							{
+								scope = ReadScope.Default;
+								elementType = ReadElement.None;
+
+								break;
+							}
+
+							case CGML.STRING_BEGIN_END:
+							{
+								elementType = ReadElement.Value;
+								reading = true;
+
+								break;
+							}
+
+							case CGML.EQUAL_OPERATOR:
+							{
+								if (elementType == ReadElement.Key && scope == ReadScope.Attribute)
+								{
+									commitAttributeKey();
+									break;
+								}
+
+								break;
+							}
+
+							case ' ':
+							{
+								scope = ReadScope.Attribute;
+								elementType = ReadElement.Key;
+
+								break;
+							}
+
+							case CGML.NODE_ENDMARK:
+							{
+								thisNode = thisNode.Parent;
+
+								break;
+							}
+
+							default:
+							{
+								if (elementType != ReadElement.None)
+								{
+									element.Append(c);
+								}
+
+								break;
+							}
+						}
+					}
+
+					if (scope == ReadScope.Node && elementType == ReadElement.Key)
+					{
+						if (nextChar == CGML.NODE_END || nextChar == CGML.EQUAL_OPERATOR || nextChar == ' ')
+						{
+							commitNodeKey();
 						}
 					}
 
@@ -359,11 +490,10 @@ namespace CGenStudios.CGML
 
 			if (node.HasValue)
 			{
-				str.Append(CGML.NODE_VALUE_BEGIN);
+				str.Append(CGML.EQUAL_OPERATOR);
 				str.Append(CGML.STRING_BEGIN_END);
 				str.Append(Clean(node.Value.ToString()));
 				str.Append(CGML.STRING_BEGIN_END);
-				str.Append(CGML.NODE_VALUE_END);
 			}
 
 			if (node.Attributes.Count > 0)

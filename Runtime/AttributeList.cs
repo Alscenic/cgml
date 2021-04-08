@@ -32,12 +32,7 @@ namespace CGenStudios.CGML
 		{
 			get
 			{
-				if (index > 0 && index < Count)
-				{
-					return this.m_Attributes[index];
-				}
-
-				return null;
+				return this.m_Attributes[index];
 			}
 		}
 

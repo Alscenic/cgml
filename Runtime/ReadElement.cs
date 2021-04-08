@@ -9,7 +9,7 @@ namespace CGenStudios.CGML
 	[System.Flags]
 	public enum ReadElement
 	{
-		Generic,
+		None,
 
 		Key,
 
