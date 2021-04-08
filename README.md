@@ -20,26 +20,26 @@ A pretty-printed settings file
 ```xml
 <Root>
 	<Audio>
-		<Volume["0.8"] Sound="1" Music="1">/
+		<Volume="0.8" Sound="1" Music="1">/
 	/
 	<Display>
 		<Resolution ResX="1280" ResY="720" Freq="60">/
-		<VSync["0"]>/
-		<Fullscreen["2"] Monitor="0">/
+		<VSync="0">/
+		<Fullscreen="2" Monitor="0">/
 	/
 	<Graphics>
-		<ShadowDistance["200"]>/
-		<ShadowQuality["2"]>/
-		<TextureQuality["2"]>/
-		<AntiAliasing["1"]>/
-		<ViewDistance["2"]>/
+		<ShadowDistance="200">/
+		<ShadowQuality="2">/
+		<TextureQuality="2">/
+		<AntiAliasing="1">/
+		<ViewDistance="2">/
 	/
 	<Gameplay>
-		<Difficulty["1"] EnableMonsters="true">/
+		<Difficulty="1"] EnableMonsters="true">/
 	/
 	<Controls>
 		<Sensitivity X="0.4" Y="0.4">
-			<Linked["true"]>/
+			<Linked="true">/
 		/
 	/
 /
