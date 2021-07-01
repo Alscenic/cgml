@@ -54,7 +54,6 @@ A pretty-printed settings file
 
 ## Limitations
 - Node and attribute keys must not include spaces or angle brackets
-- Closing node/tag for childless nodes makes file size moderately larger
 
 ## Unity installation
 ### 2020.1.3+ (optional) (strongly recommended)
