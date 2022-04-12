@@ -35,7 +35,7 @@ A pretty-printed settings file
 		<ViewDistance="2">/
 	/
 	<Gameplay>
-		<Difficulty="1"] EnableMonsters="true">/
+		<Difficulty="1" EnableMonsters="true">/
 	/
 	<Controls>
 		<Sensitivity X="0.4" Y="0.4">
